@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+
+  <define/>
+
+  <materials>
+    <isotope N="27" Z="13" name="Al270xe888b0">
+      <atom unit="g/mole" value="26.9815"/>
+    </isotope>
+    <element name="Aluminum0xe88460">
+      <fraction n="1" ref="Al270xe888b0"/>
+    </element>
+    <isotope N="16" Z="8" name="O160xe87810">
+      <atom unit="g/mole" value="15.9949"/>
+    </isotope>
+    <isotope N="17" Z="8" name="O170xdbda80">
+      <atom unit="g/mole" value="16.9991"/>
+    </isotope>
+    <isotope N="18" Z="8" name="O180xdbdb10">
+      <atom unit="g/mole" value="17.9992"/>
+    </isotope>
+    <element name="Oxygen0xe2c6d0">
+      <fraction n="0.99757" ref="O160xe87810"/>
+      <fraction n="0.00038" ref="O170xdbda80"/>
+      <fraction n="0.00205" ref="O180xdbdb10"/>
+    </element>
+    <isotope N="130" Z="56" name="Ba1300xe88c40">
+      <atom unit="g/mole" value="129.906"/>
+    </isotope>
+    <isotope N="132" Z="56" name="Ba1320xe88c80">
+      <atom unit="g/mole" value="131.905"/>
+    </isotope>
+    <isotope N="134" Z="56" name="Ba1340xe88cc0">
+      <atom unit="g/mole" value="133.905"/>
+    </isotope>
+    <isotope N="135" Z="56" name="Ba1350xe88d30">
+      <atom unit="g/mole" value="134.906"/>
+    </isotope>
+    <isotope N="136" Z="56" name="Ba1360xe88220">
+      <atom unit="g/mole" value="135.905"/>
+    </isotope>
+    <isotope N="137" Z="56" name="Ba1370xe88eb0">
+      <atom unit="g/mole" value="136.906"/>
+    </isotope>
+    <isotope N="138" Z="56" name="Ba1380xe88f20">
+      <atom unit="g/mole" value="137.905"/>
+    </isotope>
+    <element name="Barium0xe887d0">
+      <fraction n="0.00106" ref="Ba1300xe88c40"/>
+      <fraction n="0.00101" ref="Ba1320xe88c80"/>
+      <fraction n="0.02417" ref="Ba1340xe88cc0"/>
+      <fraction n="0.06592" ref="Ba1350xe88d30"/>
+      <fraction n="0.07854" ref="Ba1360xe88220"/>
+      <fraction n="0.11232" ref="Ba1370xe88eb0"/>
+      <fraction n="0.71698" ref="Ba1380xe88f20"/>
+    </element>
+    <isotope N="40" Z="20" name="Ca400xe89260">
+      <atom unit="g/mole" value="39.9626"/>
+    </isotope>
+    <isotope N="42" Z="20" name="Ca420xe892a0">
+      <atom unit="g/mole" value="41.9586"/>
+    </isotope>
+    <isotope N="43" Z="20" name="Ca430xe89310">
+      <atom unit="g/mole" value="42.9588"/>
+    </isotope>
+    <isotope N="44" Z="20" name="Ca440xe89380">
+      <atom unit="g/mole" value="43.9555"/>
+    </isotope>
+    <isotope N="46" Z="20" name="Ca460xe893f0">
+      <atom unit="g/mole" value="45.9537"/>
+    </isotope>
+    <isotope N="48" Z="20" name="Ca480xe89460">
+      <atom unit="g/mole" value="47.9525"/>
+    </isotope>
+    <element name="Calcium0xe88ba0">
+      <fraction n="0.96941" ref="Ca400xe89260"/>
+      <fraction n="0.00647" ref="Ca420xe892a0"/>
+      <fraction n="0.00135" ref="Ca430xe89310"/>
+      <fraction n="0.02086" ref="Ca440xe89380"/>
+      <fraction n="4e-05" ref="Ca460xe893f0"/>
+      <fraction n="0.00187" ref="Ca480xe89460"/>
+    </element>
+    <isotope N="24" Z="12" name="Mg240xe897c0">
+      <atom unit="g/mole" value="23.985"/>
+    </isotope>
+    <isotope N="25" Z="12" name="Mg250xe891e0">
+      <atom unit="g/mole" value="24.9858"/>
+    </isotope>
+    <isotope N="26" Z="12" name="Mg260xe89800">
+      <atom unit="g/mole" value="25.9826"/>
+    </isotope>
+    <element name="Magnesium0xe894a0">
+      <fraction n="0.7899" ref="Mg240xe897c0"/>
+      <fraction n="0.1" ref="Mg250xe891e0"/>
+      <fraction n="0.1101" ref="Mg260xe89800"/>
+    </element>
+    <isotope N="23" Z="11" name="Na230xe0ad50">
+      <atom unit="g/mole" value="22.9898"/>
+    </isotope>
+    <element name="Sodium0xe89710">
+      <fraction n="1" ref="Na230xe0ad50"/>
+    </element>
+    <isotope N="28" Z="14" name="Si280xe0b040">
+      <atom unit="g/mole" value="27.9769"/>
+    </isotope>
+    <isotope N="29" Z="14" name="Si290xe0b080">
+      <atom unit="g/mole" value="28.9765"/>
+    </isotope>
+    <isotope N="30" Z="14" name="Si300xe0b0c0">
+      <atom unit="g/mole" value="29.9738"/>
+    </isotope>
+    <element name="Silicon0xe0aca0">
+      <fraction n="0.922296077703922" ref="Si280xe0b040"/>
+      <fraction n="0.0468319531680468" ref="Si290xe0b080"/>
+      <fraction n="0.0308719691280309" ref="Si300xe0b0c0"/>
+    </element>
+    <material name="FiberGlass0xe195b0" state="solid">
+      <MEE unit="eV" value="141.524183416262"/>
+      <D unit="g/cm3" value="1.95"/>
+      <fraction n="0.0804453336471696" ref="Aluminum0xe88460"/>
+      <fraction n="0.440312120097496" ref="Oxygen0xe2c6d0"/>
+      <fraction n="0.0716518290972888" ref="Barium0xe887d0"/>
+      <fraction n="0.122925496629694" ref="Calcium0xe88ba0"/>
+      <fraction n="0.0283422652276392" ref="Magnesium0xe894a0"/>
+      <fraction n="0.00250845608292417" ref="Sodium0xe89710"/>
+      <fraction n="0.253814499217788" ref="Silicon0xe0aca0"/>
+    </material>
+    <isotope N="63" Z="29" name="Cu630xe0b540">
+      <atom unit="g/mole" value="62.9296"/>
+    </isotope>
+    <isotope N="65" Z="29" name="Cu650xe0af80">
+      <atom unit="g/mole" value="64.9278"/>
+    </isotope>
+    <element name="Copper0xe0aed0">
+      <fraction n="0.6917" ref="Cu630xe0b540"/>
+      <fraction n="0.3083" ref="Cu650xe0af80"/>
+    </element>
+    <material name="CuConductor0xe11a30" state="solid">
+      <MEE unit="eV" value="322"/>
+      <D unit="g/cm3" value="8.96"/>
+      <fraction n="1" ref="Copper0xe0aed0"/>
+    </material>
+    <isotope N="12" Z="6" name="C120xe87e40">
+      <atom unit="g/mole" value="12"/>
+    </isotope>
+    <isotope N="13" Z="6" name="C130xe87e80">
+      <atom unit="g/mole" value="13.0034"/>
+    </isotope>
+    <element name="Carbon0xe87a30">
+      <fraction n="0.9893" ref="C120xe87e40"/>
+      <fraction n="0.0107" ref="C130xe87e80"/>
+    </element>
+    <isotope N="1" Z="1" name="H10xe88170">
+      <atom unit="g/mole" value="1.00782503081372"/>
+    </isotope>
+    <isotope N="2" Z="1" name="H20xe881b0">
+      <atom unit="g/mole" value="2.01410199966617"/>
+    </isotope>
+    <element name="Hydrogen0xe87da0">
+      <fraction n="0.999885" ref="H10xe88170"/>
+      <fraction n="0.000115" ref="H20xe881b0"/>
+    </element>
+    <isotope N="14" Z="7" name="N140xe87ae0">
+      <atom unit="g/mole" value="14.0031"/>
+    </isotope>
+    <isotope N="15" Z="7" name="N150xe87b20">
+      <atom unit="g/mole" value="15.0001"/>
+    </isotope>
+    <element name="Nitrogen0xe87720">
+      <fraction n="0.99632" ref="N140xe87ae0"/>
+      <fraction n="0.00368" ref="N150xe87b20"/>
+    </element>
+    <material name="Kapton0xe12c70" state="solid">
+      <MEE unit="eV" value="77.8213645188666"/>
+      <D unit="g/cm3" value="1.42"/>
+      <fraction n="0.691060312810588" ref="Carbon0xe87a30"/>
+      <fraction n="0.0264162787048177" ref="Hydrogen0xe87da0"/>
+      <fraction n="0.0732855573573259" ref="Nitrogen0xe87720"/>
+      <fraction n="0.209237851127269" ref="Oxygen0xe2c6d0"/>
+    </material>
+    <isotope N="36" Z="18" name="Ar360xe88510">
+      <atom unit="g/mole" value="35.9675"/>
+    </isotope>
+    <isotope N="38" Z="18" name="Ar380xe88550">
+      <atom unit="g/mole" value="37.9627"/>
+    </isotope>
+    <isotope N="40" Z="18" name="Ar400xe885c0">
+      <atom unit="g/mole" value="39.9624"/>
+    </isotope>
+    <element name="Argon0xe880c0">
+      <fraction n="0.003365" ref="Ar360xe88510"/>
+      <fraction n="0.000632" ref="Ar380xe88550"/>
+      <fraction n="0.996003" ref="Ar400xe885c0"/>
+    </element>
+    <material name="WorkingGas0xe12a30" state="gas">
+      <MEE unit="eV" value="148.781108934029"/>
+      <D unit="g/cm3" value="0.001716"/>
+      <fraction n="0.7" ref="Argon0xe880c0"/>
+      <fraction n="0.08186775732788" ref="Carbon0xe87a30"/>
+      <fraction n="0.21813224267212" ref="Oxygen0xe2c6d0"/>
+    </material>
+    <material name="Epoxy0xe19b30" state="solid">
+      <MEE unit="eV" value="67.9366352583824"/>
+      <D unit="g/cm3" value="1"/>
+      <fraction n="0.347372991749891" ref="Oxygen0xe2c6d0"/>
+      <fraction n="0.260746851932262" ref="Carbon0xe87a30"/>
+      <fraction n="0.304168475900999" ref="Nitrogen0xe87720"/>
+      <fraction n="0.0877116804168476" ref="Hydrogen0xe87da0"/>
+    </material>
+    <material name="Air0xe0b580" state="gas">
+      <MEE unit="eV" value="85.7030667332999"/>
+      <D unit="g/cm3" value="0.00129"/>
+      <fraction n="0.7" ref="Nitrogen0xe87720"/>
+      <fraction n="0.3" ref="Oxygen0xe2c6d0"/>
+    </material>
+  </materials>
+
+  <solids>
+    <box lunit="mm" name="HoneyCombBox0xe1abb0" x="377.2" y="377.2" z="0.12"/>
+    <box lunit="mm" name="copperBox0xe1ace0" x="377.2" y="377.2" z="0.005"/>
+    <box lunit="mm" name="DriftElectrodeBox0xe1ac50" x="377.2" y="377.2" z="0.055"/>
+    <box lunit="mm" name="driftBox0xe1ba70" x="377.2" y="377.2" z="3"/>
+    <box lunit="mm" name="gemBox0xe1bb00" x="377.2" y="377.2" z="0.06"/>
+    <box lunit="mm" name="epoxyBox0xe1bc20" x="377.2" y="377.2" z="0.06"/>
+    <box lunit="mm" name="kaptonBox0xe1b9e0" x="377.2" y="377.2" z="0.05"/>
+    <box lunit="mm" name="RBBox0xe1bb90" x="377.2" y="377.2" z="0.235"/>
+    <box lunit="mm" name="TrackerAssemblyBox0xe1b980" x="377.2" y="377.2" z="9.66"/>
+    <box lunit="mm" name="trWorldBox0xe19e20" x="377.20001" y="377.20001" z="9.660001"/>
+  </solids>
+
+  <structure>
+    <volume name="TopHoneyComb0xe1bd50">
+      <materialref ref="FiberGlass0xe195b0"/>
+      <solidref ref="HoneyCombBox0xe1abb0"/>
+    </volume>
+    <volume name="CopperLayer0xe8fe60">
+      <materialref ref="CuConductor0xe11a30"/>
+      <solidref ref="copperBox0xe1ace0"/>
+    </volume>
+    <volume name="DriftElectrode0xe90030">
+      <materialref ref="Kapton0xe12c70"/>
+      <solidref ref="DriftElectrodeBox0xe1ac50"/>
+      <physvol name="CopperLayer_PV0xe90210">
+        <volumeref ref="CopperLayer0xe8fe60"/>
+        <position name="CopperLayer_PV0xe90210_pos" unit="mm" x="0" y="0" z="-0.025"/>
+      </physvol>
+    </volume>
+    <volume name="Drift0xe15800">
+      <materialref ref="WorkingGas0xe12a30"/>
+      <solidref ref="driftBox0xe1ba70"/>
+    </volume>
+    <volume name="GEM0xe90640">
+      <materialref ref="Kapton0xe12c70"/>
+      <solidref ref="gemBox0xe1bb00"/>
+      <physvol name="CopperLayer_PV0xe90850">
+        <volumeref ref="CopperLayer0xe8fe60"/>
+        <position name="CopperLayer_PV0xe90850_pos" unit="mm" x="0" y="0" z="0.0275"/>
+      </physvol>
+      <physvol name="CopperLayer_PV0xe908f0">
+        <volumeref ref="CopperLayer0xe8fe60"/>
+        <position name="CopperLayer_PV0xe908f0_pos" unit="mm" x="0" y="0" z="-0.0275"/>
+      </physvol>
+    </volume>
+    <volume name="EpoxyLayer0xe90990">
+      <materialref ref="Epoxy0xe19b30"/>
+      <solidref ref="epoxyBox0xe1bc20"/>
+    </volume>
+    <volume name="KaptonLayer0xe90b30">
+      <materialref ref="Kapton0xe12c70"/>
+      <solidref ref="kaptonBox0xe1b9e0"/>
+    </volume>
+    <volume name="ReadoutBoard0xe90ce0">
+      <materialref ref="FiberGlass0xe195b0"/>
+      <solidref ref="RBBox0xe1bb90"/>
+      <physvol name="EpoxyLayer_PV0xe90e20">
+        <volumeref ref="EpoxyLayer0xe90990"/>
+        <position name="EpoxyLayer_PV0xe90e20_pos" unit="mm" x="0" y="0" z="-0.0875"/>
+      </physvol>
+      <physvol name="KaptonLayer_PV0xe90ec0">
+        <volumeref ref="KaptonLayer0xe90b30"/>
+        <position name="KaptonLayer_PV0xe90ec0_pos" unit="mm" x="0" y="0" z="0.0875"/>
+      </physvol>
+      <physvol name="CopperLayer_PV0xe90f60">
+        <volumeref ref="CopperLayer0xe8fe60"/>
+        <position name="CopperLayer_PV0xe90f60_pos" unit="mm" x="0" y="0" z="0.115"/>
+      </physvol>
+    </volume>
+    <volume name="TrackerAssembly0xe91030">
+      <materialref ref="WorkingGas0xe12a30"/>
+      <solidref ref="TrackerAssemblyBox0xe1b980"/>
+      <physvol name="TopHoneyComb_PV0xe91130">
+        <volumeref ref="TopHoneyComb0xe1bd50"/>
+        <position name="TopHoneyComb_PV0xe91130_pos" unit="mm" x="0" y="0" z="4.77"/>
+      </physvol>
+      <physvol name="DriftElectrode_PV0xe911d0">
+        <volumeref ref="DriftElectrode0xe90030"/>
+        <position name="DriftElectrode_PV0xe911d0_pos" unit="mm" x="0" y="0" z="4.6825"/>
+      </physvol>
+      <physvol name="Drift_PV0xe910f0">
+        <volumeref ref="Drift0xe15800"/>
+        <position name="Drift_PV0xe910f0_pos" unit="mm" x="0" y="0" z="3.155"/>
+      </physvol>
+      <physvol name="GEM_PV0xe912a0">
+        <volumeref ref="GEM0xe90640"/>
+        <position name="GEM_PV0xe912a0_pos" unit="mm" x="0" y="0" z="1.625"/>
+      </physvol>
+      <physvol name="GEM_PV0xe91340">
+        <volumeref ref="GEM0xe90640"/>
+        <position name="GEM_PV0xe91340_pos" unit="mm" x="0" y="0" z="-0.435"/>
+      </physvol>
+      <physvol name="GEM_PV0xe91400">
+        <volumeref ref="GEM0xe90640"/>
+        <position name="GEM_PV0xe91400_pos" unit="mm" x="0" y="0" z="-2.495"/>
+      </physvol>
+      <physvol name="ReadoutBoard_PV0xe91520">
+        <volumeref ref="ReadoutBoard0xe90ce0"/>
+        <position name="ReadoutBoard_PV0xe91520_pos" unit="mm" x="0" y="0" z="-4.7125"/>
+      </physvol>
+    </volume>
+    <volume name="tracker1World0xe915c0">
+      <materialref ref="Air0xe0b580"/>
+      <solidref ref="trWorldBox0xe19e20"/>
+      <physvol name="TrackerAssembly_PV0xe91720">
+        <volumeref ref="TrackerAssembly0xe91030"/>
+      </physvol>
+    </volume>
+  </structure>
+
+  <userinfo>
+    <auxiliary auxtype="Region" auxvalue="DefaultRegionForTheWorld0xf327a0">
+      <auxiliary auxtype="volume" auxvalue="tracker1World0xe915c0"/>
+      <auxiliary auxtype="gamcut" auxunit="mm" auxvalue="0.7"/>
+      <auxiliary auxtype="ecut" auxunit="mm" auxvalue="0.7"/>
+      <auxiliary auxtype="poscut" auxunit="mm" auxvalue="0.7"/>
+      <auxiliary auxtype="pcut" auxunit="mm" auxvalue="0.7"/>
+    </auxiliary>
+  </userinfo>
+
+  <setup name="Default" version="1.0">
+    <world ref="tracker1World0xe915c0"/>
+  </setup>
+
+</gdml>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!--gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation=
+      "/work/hallc/nps/vardan/G4.nps/g4.10.04/GDML_3_1_6/schema/gdml.xsd"-->
+
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance [urldefense.proofpoint.com]" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+
+
+<!-- UVA target's magnet from 1997 drawings provided by J.Zang -->
+
+ <define>
+  <constant name="PI" value="1.*pi"/>
+  <constant name="TWOPI" value="2.*pi"/>
+
+  <quantity name="z1" type="length" value="35.5" unit="mm"/>
+  <quantity name="z2" type="length" value="48" unit="mm"/>
+  <quantity name="z3" type="length" value="85" unit="mm"/>
+
+  <quantity name="r0in" type="length" value="210/2" unit="mm"/>
+  <quantity name="r1in" type="length" value="210/2" unit="mm"/>
+  <quantity name="r2in" type="length" value="210/2" unit="mm"/>
+  <quantity name="r3in" type="length" value="300/2" unit="mm"/>
+
+  <quantity name="r0out" type="length" value="260/2" unit="mm"/>
+  <quantity name="r1out" type="length" value="500/2" unit="mm"/>
+  <quantity name="r2out" type="length" value="500/2" unit="mm"/>
+  <quantity name="r3out" type="length" value="500/2" unit="mm"/>
+
+  <quantity name="z_sc" type="length" value="11.55" unit="mm"/>
+  <quantity name="dz_sc" type="length" value="23." unit="mm"/>
+  <quantity name="rin_sc" type="length" value="233./2" unit="mm"/>
+  <quantity name="rout_sc" type="length" value="306./2" unit="mm"/>
+
+  <quantity name="z_lc" type="length" value="34.55" unit="mm"/>
+  <quantity name="dz_lc" type="length" value="50.45" unit="mm"/>
+  <quantity name="rin_lc" type="length" value="331./2" unit="mm"/>
+  <quantity name="rout_lc" type="length" value="445./2" unit="mm"/>
+
+  <quantity name="z_jf" type="length" value="85" unit="mm"/>
+  <quantity name="dz_jf" type="length" value="22" unit="mm"/>
+  <quantity name="rin_jf" type="length" value="340./2" unit="mm"/>
+  <quantity name="rout_jf" type="length" value="480./2" unit="mm"/>
+
+  <quantity name="gap" type="length" value="81." unit="mm"/>
+
+  <quantity name="poleZ" type="length" value="107." unit="mm"/>
+
+  <position name="pos_shift" x="0" y="0" z="(poleZ+gap)/2" unit="mm"/>
+  <position name="neg_shift" x="0" y="0" z="-(poleZ+gap)/2" unit="mm"/>
+
+  <position name="fc_shift" x="0" y="0" z="-poleZ/2" unit="mm"/>
+
+  <!-- position name="sc_shift" x="0" y="0" z="z_sc+dz_sc/2-poleZ/2"/ -->
+  <position name="sc_shift" x="0" y="0" z="z_sc+dz_sc/2" unit="mm"/>
+
+  <!-- position name="lc_shift" x="0" y="0" z="z_lc+dz_lc/2-poleZ/2"/ -->
+  <position name="lc_shift" x="0" y="0" z="z_lc+dz_lc/2" unit="mm"/>
+  
+  <position name="jf_shift" x="0" y="0" z="z_jf+dz_jf/2-poleZ/2" unit="mm"/>
+
+  <rotation name="zflip" x="PI" y="0" z="0"/>
+  <rotation name="rotym90" x="0" y="-90" z="0" unit="deg"/>
+  
+  <position name="center" x="0" y="0" z="0"/>
+  <rotation name="identity" x="0" y="0" z="0"/>
+
+  <quantity name="wZ" type="length" value="2*poleZ+gap+1"/>
+  <quantity name="wR" type="length" value="250.05" unit="mm"/>
+
+ </define>
+
+ <materials>
+
+   <element name="Chromium" formula="Cr" Z="24."> <atom value="51.9961"/>
+   </element>
+   <element name="Iron" formula="Fe" Z="26."> <atom value="55.845"/> </element>
+   <element name="Nickel" formula="Ni" Z="28."> <atom value="58.6934"/>
+   </element>
+   <element name="Molybdenum" formula="Mo" Z="42."> <atom value="95.95"/>
+   </element>
+   <element name="Manganese" formula="Mn" Z="25."> <atom value="54.938"/>
+   </element>
+
+   <material formula="ST 316 LN" name="steel" >
+     <D value="8." unit="g/cm3"/>
+     <fraction n="0.17" ref="Chromium"/>
+     <fraction n="0.67" ref="Iron"/>
+     <fraction n="0.12" ref="Nickel"/>
+     <fraction n="0.025" ref="Molybdenum"/>
+     <fraction n="0.015" ref="Manganese"/>
+  </material>
+
+   <element name="Niobium" formula="Nb" Z="45."> <atom value="92.90637"/>
+   </element>
+   <element name="Titanium" formula="Ti" Z="22."> <atom value="47.867"/>
+   </element>
+   <element name="Copper" formula="Cu" Z="29."> <atom value="63.546"/>
+   </element>
+
+   <!-- This NbTi composition is a guess -->
+   <material formula="NbTi" name="Niobium-titanium" >
+     <D value="6.5" unit="g/cm3"/>
+     <fraction n="0.5" ref="Niobium"/>
+     <fraction n="0.5" ref="Titanium"/>
+  </material>
+
+  <material formula="NbTi-Cu" name="NbTi-superconductor" >
+     <D value="7.75" unit="g/cm3"/>
+     <fraction n="0.5" ref="Niobium-titanium"/>
+     <fraction n="0.5" ref="Copper"/>
+  </material>
+
+
+   <element name="Nitrogen" formula="N" Z="7."> <atom value="14.01"/> </element>
+   <element name="Hydrogen" formula="H" Z="1."> <atom value="1.008"/> </element>
+   <element name="Oxygen" formula="O" Z="8."> <atom value="16.0"/>   </element>
+
+  <!-- Vacuum at 10^-6 Torr -->
+  <material name="Vaccuum">
+   <D value="1.3e-12" unit="g/cm3"/>
+   <fraction n="0.7" ref="Nitrogen"/>
+   <fraction n="0.3" ref="Oxygen"/>
+  </material>
+
+   <!-- TUFNOL composition, a guess... -->
+
+   <element name="Carbon" formula="C" Z="6."> <atom value="12.011"/> </element>
+
+   <material name="PhenolPhormaldehide" formula="C8H6O2">
+     <D value="1.2" unit="g/cm3"/>
+     <composite n="8" ref="Carbon"/>
+     <composite n="6" ref="Hydrogen"/>
+     <composite n="2" ref="Oxygen"/>
+   </material>
+
+   <element name="Silicon" formula="Si" Z="14."> <atom value="28.0855"/>
+   </element>
+
+   <material name="glass" formula="SiO2">
+     <D value="2.2" unit="g/cm3"/>
+     <composite n="1" ref="Silicon"/>
+     <composite n="2" ref="Oxygen"/>
+   </material>
+
+   <material name="TUFNOL">
+     <D value="1.4" unit="g/cm3"/>
+     <fraction n="0.8" ref="glass"/>
+     <fraction n="0.2" ref="PhenolPhormaldehide"/>
+   </material>
+
+ </materials>
+
+ <solids> 
+
+   <polycone name = "mag_pole" startphi="0" deltaphi="360" aunit="deg" lunit="mm">
+    <zplane rmin="r0in" rmax="r0out" z="0" />
+    <zplane rmin="r1in" rmax="r1out" z="z1" />
+    <zplane rmin="r2in" rmax="r2out" z="z2" />
+    <zplane rmin="r3in" rmax="r3out" z="z3" />
+  </polycone>
+
+  <tube name="mag_sc_ring" rmin="rin_sc" rmax="rout_sc" z="dz_sc" startphi="0"
+	deltaphi="360" aunit="deg" lunit="mm" />
+
+  <tube name="mag_lc_ring" rmin="rin_lc" rmax="rout_lc" z="dz_lc" startphi="0"
+	deltaphi="360" aunit="deg" lunit="mm" />
+
+  <tube name="mag_jf_ring" rmin="rin_jf" rmax="rout_jf" z="dz_jf" startphi="0"
+	deltaphi="360" aunit="deg" lunit="mm" />
+
+  <tube name="MagPoleAssemblyTube" rmax="wR" z="poleZ" deltaphi="360"
+	aunit="deg" lunit="mm" />
+
+  <tube name="mag_whole_tube" rmax="wR" z="wZ" deltaphi="360" aunit="deg"
+	lunit="mm"/>
+
+  <tube name="mag_gap_tube" rmax="wR" z="gap" deltaphi="360" aunit="deg"
+	lunit="mm"/>
+
+  <subtraction name="MagnetAssemblyTube" >
+    <first ref="mag_whole_tube" />
+    <second ref="mag_gap_tube" />
+    <positionref ref="center" />
+    <rotationref ref="identity" />
+  </subtraction>
+
+ </solids>
+
+ <structure> 
+
+   <volume name="MagSmallCoilVol">
+     <materialref ref="NbTi-superconductor" />
+     <solidref ref="mag_sc_ring"/>
+     <auxiliary auxtype="Color" auxvalue="green" />
+   </volume>
+
+   <volume name="MagLargeCoilVol">
+     <materialref ref="NbTi-superconductor" />
+     <solidref ref="mag_lc_ring"/>
+     <auxiliary auxtype="Color" auxvalue="green" />
+   </volume>
+
+   <volume name="MagPoleVol">
+     <materialref ref="steel"/>
+     <solidref ref="mag_pole"/>
+
+     <physvol>
+       <volumeref ref="MagSmallCoilVol"/>
+       <positionref ref="sc_shift"/>
+       <rotationref ref="identity"/>
+     </physvol>
+
+     <physvol>
+       <volumeref ref="MagLargeCoilVol"/>
+       <positionref ref="lc_shift"/>
+       <rotationref ref="identity"/>
+     </physvol>
+
+     <auxiliary auxtype="Color" auxvalue="red" />
+   </volume>
+
+   <volume name="MagJointFlangeVol">
+     <materialref ref="TUFNOL" />
+     <solidref ref="mag_jf_ring"/>
+     <auxiliary auxtype="Color" auxvalue="yellow" />
+   </volume>
+
+   <volume name="MagPoleAssembly">
+     <materialref ref="Vaccuum"/>
+     <solidref ref="MagPoleAssemblyTube"/>
+
+     <physvol>
+       <volumeref ref="MagPoleVol"/>
+       <positionref ref="fc_shift"/>
+       <rotationref ref="identity"/>
+     </physvol>
+
+     <physvol>
+       <volumeref ref="MagJointFlangeVol"/>
+       <positionref ref="jf_shift"/>
+       <rotationref ref="identity"/>
+     </physvol>
+
+     <auxiliary auxtype="Color" auxvalue="trans" />
+   </volume>
+
+   <volume name="MagnetAssembly">
+     <materialref ref="Vaccuum"/>
+     <solidref ref="MagnetAssemblyTube"/>
+
+     <physvol>
+       <volumeref ref="MagPoleAssembly"/>
+       <positionref ref="pos_shift"/>
+       <rotationref ref="identity"/>
+     </physvol>
+
+     <physvol>
+       <volumeref ref="MagPoleAssembly"/>
+       <positionref ref="neg_shift"/>
+       <rotationref ref="zflip"/>
+     </physvol>
+
+     <!-- Target cell parallel to magnet coils for TCS -->
+     <!-- physvol -->
+       <!-- file name="tcs_gdmls/target.gdml"/ -->
+       <!-- positionref ref="center"/ -->
+       <!-- rotationref ref="rotym90"/ -->
+     <!-- /physvol -->
+
+   </volume>
+
+ </structure>
+
+ <setup name="Default" version="1.0">
+   <world ref="MagnetAssembly"/>
+ </setup>
+
+</gdml>

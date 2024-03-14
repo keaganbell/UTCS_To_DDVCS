@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation=
+      "/work/hallc/nps/vardan/G4.nps/g4.10.04/GDML_3_1_6/schema/gdml.xsd">
+
+  <!-- Adjusted to the SANE OVC -->
+  <!-- Remove "sheet of flame" at the middle of acceptance -->
+
+ <define>
+   <!-- constant name="NCOL" value="50"/ -->
+   <constant name="NCOL" value="23"/>
+   <constant name="NROW" value="23"/>
+   <constant name="BLKX" value="2.05"/>
+   <constant name="BLKZ" value="20."/>
+
+   <constant name="eps" value="0.000001"/>
+   <!-- constant name="eps" value="1"/ -->
+
+   <quantity name="blkx" type="length" value="BLKX" unit="cm"/>
+   <quantity name="blkz" type="length" value="BLKZ" unit="cm"/>
+
+   <position name="center" x="0" y="0" z="0"/>
+   <rotation name="identity" x="0" y="0" z="0"/>
+
+   <quantity name="xext" type="length" value="NCOL*BLKX+eps" unit="cm"/>
+   <quantity name="yext" type="length" value="NROW*BLKX+eps" unit="cm"/>
+   <quantity name="zext" type="length" value="BLKZ+eps" unit="cm"/>
+ </define>
+
+ <materials>
+
+  <element name="Oxygen" formula="O" Z="8."> <atom value="16.0"/>   </element>
+  <element name="Nitrogen" formula="N" Z="7."> <atom value="14.01"/>  </element>
+  <element name="Lead" formula="Pb" Z="82."> <atom value="207.2"/>   </element>
+  <element name="Tungsten" formula="W" Z="74."> <atom value="183.84"/>
+  </element>
+
+  <material name="Air">
+   <D value="1.290" unit="mg/cm3"/>
+   <fraction n="0.7" ref="Nitrogen"/>
+   <fraction n="0.3" ref="Oxygen"/>
+  </material>
+
+  <material name="Lead_tungstate">
+   <D value="8.3" unit="g/cm3"/>
+   <fraction n="0.455347" ref="Lead"/>
+   <fraction n="0.404011" ref="Tungsten"/>
+   <fraction n="0.140462" ref="Oxygen"/>
+  </material>
+
+ </materials>
+
+ <solids> 
+   <box name="cWorldBox" x="xext" y="yext" z="zext"/>
+   <box name="CalorimeterAssemblyBox" x="NCOL*blkx" y="NROW*blkx" z="blkz"/>
+   <box name="RowBox" x="NCOL*blkx" y="blkx" z="blkz"/>
+   <box name="BlockBox" x="blkx" y="blkx" z="blkz"/>
+ </solids>
+
+ <structure>  
+
+   <volume name="Block">
+     <materialref ref="Lead_tungstate"/>
+     <solidref ref="BlockBox"/>
+   </volume>
+
+   <volume name="Row">
+     <materialref ref="Air"/>
+     <solidref ref="RowBox"/>
+
+     <divisionvol axis="kXAxis" number="NCOL" unit="cm" width="0" offset="0">
+       <volumeref ref="Block"/>
+     </divisionvol>
+
+   </volume>
+
+   <volume name="CalorimeterAssembly">
+     <materialref ref="Air"/>
+     <solidref ref="CalorimeterAssemblyBox"/>
+
+     <divisionvol axis="kYAxis" number="NROW" unit="cm" width="0" offset="0">
+       <volumeref ref="Row"/>
+     </divisionvol>
+
+   </volume>
+  
+  <volume name="caloWorld">
+   <materialref ref="Air"/>
+   <solidref ref="cWorldBox"/>
+
+   <physvol>
+     <volumeref ref="CalorimeterAssembly"/>
+     <positionref ref="center"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <auxiliary auxtype="Color" auxvalue="red"/>
+  </volume>
+
+ </structure>
+
+ <setup name="Default" version="1.0">
+   <world ref="caloWorld"/>
+   <!-- world ref="CalorimeterAssembly"/ -->
+ </setup>
+
+</gdml>

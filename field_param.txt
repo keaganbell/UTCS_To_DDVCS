@@ -1,0 +1,11 @@
+1.	relative field strength.
+0.	field displacement in X direction [cm], must match magnet!
+0.	field displacement in Z direction [cm], must match magnet!
+90.	field rotation angle (deg), must match magnet!
+300	grid dimension in the radial direction
+300	grid dimension in Z direction
+g2p_hallbfield.dat      field map file name
+0	debug flag
+
+dummy.dat
+

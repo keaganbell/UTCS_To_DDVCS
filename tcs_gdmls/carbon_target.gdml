@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation=
+      "/work/hallc/nps/vardan/G4.nps/g4.10.04/GDML_3_1_6/schema/gdml.xsd">
+
+<!-- >1mm carbon target for tests -->
+
+ <define>
+  <constant name="PI" value="1.*pi"/>
+  <constant name="TWOPI" value="2.*pi"/>
+
+  <!-- End caps: 0.7 mil Al, from Jixie -->
+  <quantity name="thick_entr_cap" type="length" value="0.1" unit="mm"/>
+  <quantity name="thick_exit_cap" type="length" value="0.1" unit="mm"/>
+
+  <quantity name="thick_cell_wall" type="length" value="0.0889" unit="cm"/>
+  <quantity name="diam_cell" type="length" value="2.90068" unit="cm"/>
+  <quantity name="length_vol" type="length" value="0.8" unit="mm"/>
+
+  <position name="entr_cap_shift" x="0" y="0"
+	    z="-(length_vol+thick_entr_cap)/2."/>
+
+  <position name="exit_cap_shift" x="0" y="0"
+	    z="(length_vol+thick_exit_cap)/2."/>
+
+  <position name="center" x="0" y="0" z="0"/>
+  <rotation name="identity" x="0" y="0" z="0"/>
+
+  <quantity name="wextent" type="length" value="3.2" unit="cm"/>
+ </define>
+
+ <materials>
+
+   <element name="Carbon" formula="C" Z="6."> <atom value="12.011"/> </element>
+   <element name="Clorine" formula="Cl" Z="17."> <atom value="35.45"/>
+   </element>
+   <element name="Fluorine" formula="F" Z="9."> <atom value="19.0"/> </element>
+
+   <material name="Kel-F" formula="C2ClF3">
+     <D value="2.13" unit="g/cm3"/>
+     <composite n="2" ref="Carbon"/>
+     <composite n="1" ref="Clorine"/>
+     <composite n="3" ref="Fluorine"/>
+   </material>
+
+   <material name="Al" Z="13.0"> <D value="2.70"/> <atom value="26.98"/>
+   </material>
+
+   <element name="Nitrogen" formula="N" Z="7."> <atom value="14.01"/> </element>
+   <element name="Hydrogen" formula="H" Z="1."> <atom value="1.008"/> </element>
+   <element name="Oxygen" formula="O" Z="8."> <atom value="16.0"/>   </element>
+
+   <material name="Ammonia" formula="NH3">
+     <D value="0.817" unit="g/cm3"/>
+     <composite n="1" ref="Nitrogen"/>
+     <composite n="3" ref="Hydrogen"/>
+   </material>  
+
+  <material name="lHe" Z="2." >
+    <D value="0.145" unit="g/cm3"/>
+    <atom value="4.003"/>
+  </material>
+
+  <!-- UVA NH3 polarized target material, 0.6 packing fraction -->
+  <material formula="NH3_lHe_mixture" name="target_material" >
+    <D value="0.5482" unit="g/cm3"/>
+    <fraction n="0.8942" ref="Ammonia"/>
+    <fraction n="0.1058" ref="lHe"/>
+  </material>
+
+  <!-- test -->
+  <material name="graphite" Z="6.">
+    <D value="2.3"/>
+    <atom value="12.011"/>
+  </material>
+  
+  <!-- Vacuum at 10^-6 Torr -->
+  <material name="Vaccuum">
+   <D value="1.3e-12" unit="g/cm3"/>
+   <fraction n="0.7" ref="Nitrogen"/>
+   <fraction n="0.3" ref="Oxygen"/>
+  </material>
+
+ </materials>
+
+ <solids> 
+
+  <tube name="CellVol" rmin="(diam_cell-thick_cell_wall)/2" rmax="diam_cell/2"
+	z="length_vol" deltaphi="TWOPI"/>
+
+  <tube name="TargetVol" rmin="0." rmax="(diam_cell-thick_cell_wall)/2"
+	z="length_vol" deltaphi="TWOPI"/>
+
+  <tube name="EntrCapVol" rmin="0." rmax="diam_cell/2" z="thick_entr_cap"
+	deltaphi="TWOPI"/>
+
+  <tube name="ExitCapVol" rmin="0." rmax="diam_cell/2" z="thick_exit_cap"
+	deltaphi="TWOPI"/>
+
+  <box name="TargetAssemblyBox" x="wextent" y="wextent" z="wextent"/>
+ </solids>
+
+ <structure>  
+
+   <volume name="TargetMat">
+     <materialref ref="graphite"/>
+     <solidref ref="TargetVol"/>
+     <auxiliary auxtype="Color" auxvalue="red" />
+   </volume>
+
+   <volume name="TargetCell">
+     <materialref ref="graphite"/>
+     <solidref ref="CellVol"/>
+     <!-- this generates error message -->
+     <auxiliary auxtype="Color" auxvalue="blue" />
+   </volume>
+
+   <volume name="TargetEntrCap">
+     <materialref ref="graphite"/>
+     <solidref ref="EntrCapVol"/>
+     <auxiliary auxtype="Color" auxvalue="green" />
+   </volume>
+
+   <volume name="TargetExitCap">
+     <materialref ref="graphite"/>
+     <solidref ref="ExitCapVol"/>
+     <auxiliary auxtype="Color" auxvalue="green" />
+   </volume>
+
+  <volume name="TargetAssembly">
+   <materialref ref="Vaccuum"/>
+   <solidref ref="TargetAssemblyBox"/>
+
+   <physvol>
+     <volumeref ref="TargetMat"/>
+     <positionref ref="center"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="TargetCell"/>
+     <positionref ref="center"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="TargetEntrCap"/>
+     <positionref ref="entr_cap_shift"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="TargetExitCap"/>
+     <positionref ref="exit_cap_shift"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+  </volume>
+
+ </structure>
+
+ <setup name="Default" version="1.0">
+   <world ref="TargetAssembly"/>
+ </setup>
+
+</gdml>

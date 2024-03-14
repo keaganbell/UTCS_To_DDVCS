@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!--gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation=
+      "/work/hallc/nps/vardan/G4.nps/g4.10.04/GDML_3_1_6/schema/gdml.xsd"-->
+
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance [urldefense.proofpoint.com]" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+
+  <!-- According to SANE OVC drawings, and from Jixie's -->
+  <!-- G2PDetectorConstruction.cc -->
+
+ <define>
+  <constant name="PI" value="1.*pi"/>
+  <constant name="TWOPI" value="2.*pi"/>
+  
+  <constant name="Dshld" value="32.625"/>
+  <constant name="Tshld" value="0.375"/>
+  <constant name="Hshld" value="32.88"/>
+  
+  <quantity name="rin" type="length" value="Dshld/2*2.54" unit="cm"/>
+  <quantity name="thick" type="length" value="Tshld*2.54" unit="cm"/>
+  <quantity name="hight" type="length" value="Hshld*2.54" unit="cm"/>
+
+  <!-- From Jixie, 1.5 mil foil. In SANE OVC drawings it is 20 mil thick -->
+  <quantity name="thick_left_win" type="length" value="0.0015*2.54" unit="cm"/>
+  <quantity name="thick_right_win" type="length" value="0.0015*2.54" unit="cm"/>
+
+  <!-- quantity name="philo_left_win" type="angle" value="-109." unit="deg"/ -->
+  <quantity name="philo_left_win" type="angle" value="360.-109." unit="deg"/>
+  <quantity name="dphi_left_win" type="angle" value="38." unit="deg"/>
+  <quantity name="philo_right_win" type="angle" value="71." unit="deg"/>
+  <quantity name="dphi_right_win" type="angle" value="38." unit="deg"/>
+
+  <!-- From Jixie. In SANE OVC drawings the windows are 15.62" high -->
+  <quantity name="hight_left_win" type="length" value="15*2.54" unit="cm"/>
+  <quantity name="hight_right_win" type="length" value="15*2.54" unit="cm"/>
+
+  <quantity name="diam_entr" type="length" value="5.25*2.54" unit="cm"/>
+  <quantity name="hight_entr" type="length" value="0.4*2.54+0.25" unit="cm"/>
+  <!-- Height is (rin + thick + sqrt(rin^2+rentr^2))/2 -->
+
+  <position name="entr_shift" x="-16.3*2.54" y="0." z="0." unit="cm"/>
+  <!-- Shift is rin + thick - hight_ent/2 -->
+
+  <rotation name="rotxz90" x="90" y="0" z="90" unit="deg"/>
+  <rotation name="rotmy90" x="0" y="-90" z="0" unit="deg"/>
+
+  <position name="center" x="0" y="0" z="0"/>
+  <rotation name="identity" x="0" y="0" z="0"/>
+
+  <quantity name="wRmax" type="length" value="(Dshld/2+Tshld)*2.54+0.1"
+	    unit="cm"/>
+  <quantity name="wRmin" type="length" value="Dshld/2*2.54-0.1"
+	    unit="cm"/>
+  <quantity name="wZ" type="length" value="Hshld*2.54+0.1" unit="cm"/>
+
+ </define>
+
+ <materials>
+
+  <material name="Al" Z="13.0"> <D value="2.70"/> <atom value="26.98"/>
+  </material>
+
+  <element name="Oxygen" formula="O" Z="8."> <atom value="16.0"/>   </element>
+  <element name="Nitrogen" formula="N" Z="7."> <atom value="14.01"/>  </element>
+
+  <!-- Vacuum at 10^-6 Torr -->
+  <material name="Vaccuum">
+   <D value="1.3e-12" unit="g/cm3"/>
+   <fraction n="0.7" ref="Nitrogen"/>
+   <fraction n="0.3" ref="Oxygen"/>
+  </material>
+
+ </materials>
+
+ <solids> 
+
+   <tube name="LN2ShldCyl" rmin="rin" rmax="rin+thick" z="hight"
+	 deltaphi="TWOPI"/>
+
+  <!-- tube name="LN2Left" rmin="rin+0-1" rmax="rin+thick+1" -->
+  <tube name="LN2Left" rmin="rin+0-0.1" rmax="rin+thick+0.1" z="hight_left_win"
+	startphi="philo_left_win" deltaphi="dphi_left_win"/>
+
+  <!-- tube name="LN2Right" rmin="rin+0-1"	rmax="rin+thick+1" -->
+  <tube name="LN2Right" rmin="rin+0-0.1" rmax="rin+thick+0.1"
+	z="hight_right_win" startphi="philo_right_win"
+	deltaphi="dphi_right_win"/>
+
+  <tube name="LN2EntrTube" rmin="0." rmax="diam_entr/2" z="hight_entr"
+	deltaphi="TWOPI"/>
+
+  <subtraction name="LN2s1" >
+    <first ref="LN2ShldCyl" />
+    <second ref="LN2Left"/>
+    <positionref ref="center" />
+    <rotationref ref="identity" />
+  </subtraction>
+
+  <subtraction name="LN2s2" >
+    <first ref="LN2s1" />
+    <second ref="LN2Right"/>
+    <positionref ref="center" />
+    <rotationref ref="identity" />
+  </subtraction>
+
+  <!-- subtraction name="LN2s3" -->
+    <!-- first ref="LN2s2" / -->
+    <!-- second ref="LN2EntrTube"/ -->
+    <!-- positionref ref="entr_shift" / -->
+    <!-- rotationref ref="rotmy90" / -->
+  <!-- /subtraction -->
+
+  <tube name="LN2FoilLeft" rmin="rin+thick"
+	rmax="rin+thick+thick_left_win"
+	z="hight_left_win" startphi="philo_left_win" deltaphi="dphi_left_win"/>
+
+  <tube name="LN2FoilRight" rmin="rin+thick"
+	rmax="rin+thick+thick_right_win"
+	z="hight_right_win" startphi="philo_right_win"
+	deltaphi="dphi_right_win"/>
+
+  <tube name="LN2ShieldAssemblyCyl" rmin="wRmin" rmax="wRmax" z="wZ"
+	deltaphi="TWOPI"/>
+ </solids>
+
+ <structure>  
+
+  <volume name="LN2WinFoilLeft">
+   <materialref ref="Al"/>
+   <solidref ref="LN2FoilLeft"/>
+   <auxiliary auxtype="Color" auxvalue="green"/>
+  </volume>
+
+  <volume name="LN2WinFoilRight">
+   <materialref ref="Al"/>
+   <solidref ref="LN2FoilRight"/>
+   <auxiliary auxtype="Color" auxvalue="green"/>
+  </volume>
+
+  <volume name="LN2ShieldBody">
+   <materialref ref="Al"/>
+   <!-- solidref ref="LN2s3"/ -->
+      <solidref ref="LN2s2"/>
+   <auxiliary auxtype="Color" auxvalue="cyan"/>
+  </volume>
+
+  <volume name="LN2ShieldAssembly">
+   <materialref ref="Vaccuum"/>
+   <solidref ref="LN2ShieldAssemblyCyl"/>
+
+   <physvol>
+     <volumeref ref="LN2ShieldBody"/>
+     <positionref ref="center"/>
+     <!-- rotationref ref="rotxz90"/ -->
+     <rotationref ref="identity"/>
+   </physvol>
+
+   <physvol>
+    <volumeref ref="LN2WinFoilLeft"/>
+    <positionref ref="center"/>
+    <!-- rotationref ref="rotxz90"/ -->
+    <rotationref ref="identity"/>
+  </physvol>
+
+  <physvol>
+    <volumeref ref="LN2WinFoilRight"/>
+    <positionref ref="center"/>
+    <!-- rotationref ref="rotxz90"/ -->
+    <rotationref ref="identity"/>
+  </physvol>
+
+  </volume>
+
+ </structure>
+
+ <setup name="Default" version="1.0">
+   <world ref="LN2ShieldAssembly"/>
+ </setup>
+
+</gdml>

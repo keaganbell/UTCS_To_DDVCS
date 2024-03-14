@@ -1,0 +1,15 @@
+mu+		particle
+0.4 0.4		momentum [GeV]
+0. 0. 0.	position, cm
+0. 0. 28.27    	sizes, mm
+0. 0.		deflection angles, ThetaX & ThetaY [deg]
+0. 0.  		divergence dThetaX, dThetaY [deg] (see PrimaryGeneratorAction).
+tcs
+
+gamma		particle, "central ray"
+0.010 11.	kinetic energy (or momentum), GeV
+0. 0. -5.	position, cm (before target)
+0. 0. 0.    	sizes, mm
+0. 0. 		thetaX, thetaY
+0. 0.		dthetaX, dthetaY
+brem

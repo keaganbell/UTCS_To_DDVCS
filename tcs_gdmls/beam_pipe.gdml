@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation=
+      "/work/hallc/nps/vardan/G4.nps/g4.10.04/GDML_3_1_6/schema/gdml.xsd">
+
+
+<!--gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance [urldefense.proofpoint.com]" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd"-->
+
+ <define>
+  <!--constant name="PI" value="1.*pi"/-->
+  <!--constant name="TWOPI" value="2.*pi"/-->
+
+  <!-- constant name="NSEG" value="3"/ -->
+
+  <!-- Insure 0.0135 mr critical angle. 1mm thick walls. -->
+
+  <quantity name="thick" type="length" value="0.1" unit="cm"/>
+
+  <quantity name="BeamPipeBox_rmin" type="length" value="0.0" unit="cm"/>
+  <quantity name="BeamPipeBox_rmax" type="length" value="8.1" unit="cm"/>
+
+  <quantity name="Din_1" type="length" value="4.0" unit="cm"/>
+  <quantity name="Din_2" type="length" value="5.0" unit="cm"/>
+  <quantity name="Din_3" type="length" value="7.0" unit="cm"/>
+  <quantity name="Din_4" type="length" value="16." unit="cm"/>
+
+  <quantity name="Dout_1" type="length" value="Din_1+2*thick" />
+  <quantity name="Dout_2" type="length" value="Din_2+2*thick" />
+  <quantity name="Dout_3" type="length" value="Din_3+2*thick" />
+  <quantity name="Dout_4" type="length" value="Din_4+2*thick" />
+
+  <quantity name="L_1" type="length" value="90" unit="cm"/>
+  <quantity name="L_2" type="length" value="37" unit="cm"/>
+  <quantity name="L_3" type="length" value="23" unit="cm"/>
+  <quantity name="L_4" type="length" value="100" unit="cm"/>
+
+  <quantity name="boxx" type="length" value="Dout_4" />
+  <quantity name="boxy" type="length" value="Dout_4" />
+  <quantity name="boxz" type="length" value="L_1+L_2+L_3+L_4" />
+
+  <position name="pos1" x="0" y="0" z="(L_1-boxz)/2" />
+  <position name="pos2" x="0" y="0" z="L_1+(L_2-boxz)/2" />
+  <position name="pos3" x="0" y="0" z="L_1+L_2+(L_3-boxz)/2" />
+  <position name="pos4" x="0" y="0" z="L_1+L_2+L_3+(L_4-boxz)/2" />
+
+  <position name="posd1" x="0" y="0" z="L_1-thick/2-boxz/2"/>
+  <position name="posd2" x="0" y="0" z="L_1+L_2-thick/2-boxz/2"/>
+  <position name="posd3" x="0" y="0" z="L_1+L_2+L_3-thick/2-boxz/2" />
+
+  <position name="center" x="0" y="0" z="0" />
+  <rotation name="identity" x="0" y="0" z="0" />
+ </define>
+
+ <materials>
+
+  <material name="Al" Z="13.0"> <D value="2.70"/> <atom value="26.98"/>
+  </material>
+
+  <element name="Oxygen" formula="O" Z="8."> <atom value="16.0"/>   </element>
+  <element name="Nitrogen" formula="N" Z="7."> <atom value="14.01"/>  </element>
+
+  <!-- Vacuum at 10^-6 Torr -->
+  <material name="Vaccuum">
+   <D value="1.3e-12" unit="g/cm3"/>
+   <fraction n="0.7" ref="Nitrogen"/>
+   <fraction n="0.3" ref="Oxygen"/>
+  </material>
+
+  <material name="Air">
+   <D value="1.290" unit="mg/cm3"/>
+   <fraction n="0.7" ref="Nitrogen"/>
+   <fraction n="0.3" ref="Oxygen"/>
+  </material>
+
+ </materials>
+
+ <solids>
+  <tube name="pipe1" rmin="Din_1/2" rmax="Dout_1/2" z="L_1" deltaphi="TWOPI"/>
+  <tube name="pipe2" rmin="Din_2/2" rmax="Dout_2/2" z="L_2" deltaphi="TWOPI"/>
+  <tube name="pipe3" rmin="Din_3/2" rmax="Dout_3/2" z="L_3" deltaphi="TWOPI"/>
+  <tube name="pipe4" rmin="Din_4/2" rmax="Dout_4/2" z="L_4" deltaphi="TWOPI"/>
+  <tube name="tube1" rmax="Din_1/2" z="L_1" deltaphi="TWOPI"/>
+  <tube name="tube2" rmax="Din_2/2" z="L_2" deltaphi="TWOPI"/>
+  <tube name="tube3" rmax="Din_3/2" z="L_3" deltaphi="TWOPI"/>
+  <tube name="tube4" rmax="Din_4/2" z="L_4" deltaphi="TWOPI"/>
+  <tube name="disk1" rmin="(Din_1/2)+1." rmax="Dout_2/2" z="thick" deltaphi="TWOPI"/>
+  <tube name="disk2" rmin="(Din_2/2)+1." rmax="Dout_3/2" z="thick" deltaphi="TWOPI"/>
+  <tube name="disk3" rmin="(Din_3/2)+1." rmax="Dout_4/2" z="thick" deltaphi="TWOPI"/>
+  <tube name="BeamPipeBox" rmin="BeamPipeBox_rmin" rmax="BeamPipeBox_rmax" z="boxz" deltaphi="TWOPI"/>
+  <!--box name="BeamPipeBox" x="boxx" y="boxy" z="boxz"/-->
+ </solids>
+
+ <structure>
+
+  <volume name="Pipe1">
+   <materialref ref="Al" />
+   <solidref ref="pipe1" />
+  </volume>
+
+  <volume name="Pipe2">
+   <materialref ref="Al" />
+   <solidref ref="pipe2" />
+  </volume>
+
+  <volume name="Pipe3">
+   <materialref ref="Al" />
+   <solidref ref="pipe3" />
+  </volume>
+
+  <volume name="Pipe4">
+   <materialref ref="Al" />
+   <solidref ref="pipe4" />
+  </volume>
+
+  <volume name="Vac1">
+   <materialref ref="Vaccuum" />
+   <solidref ref="tube1" />
+   <auxiliary auxtype="Color" auxvalue="yellow" />
+  </volume>
+
+  <volume name="Vac2">
+   <materialref ref="Vaccuum" />
+   <solidref ref="tube2" />
+   <auxiliary auxtype="Color" auxvalue="yellow" />
+  </volume>
+
+  <volume name="Vac3">
+   <materialref ref="Vaccuum" />
+   <solidref ref="tube3" />
+   <auxiliary auxtype="Color" auxvalue="yellow" />
+  </volume>
+
+  <volume name="Vac4">
+   <materialref ref="Vaccuum" />
+   <solidref ref="tube4" />
+   <auxiliary auxtype="Color" auxvalue="yellow" />
+  </volume>
+
+  <volume name="Disk1">
+   <materialref ref="Al" />
+   <solidref ref="disk1" />
+   <auxiliary auxtype="Color" auxvalue="blue" />
+  </volume>
+
+  <volume name="Disk2">
+   <materialref ref="Al" />
+   <solidref ref="disk2" />
+   <auxiliary auxtype="Color" auxvalue="blue" />
+  </volume>
+
+  <volume name="Disk3">
+   <materialref ref="Al" />
+   <solidref ref="disk3" />
+   <auxiliary auxtype="Color" auxvalue="blue" />
+  </volume>
+
+  <volume name="BeamPipeAssembly" >
+   <materialref ref="Air"/>
+   <solidref ref="BeamPipeBox"/>
+
+   <physvol>
+     <volumeref ref="Pipe1"/>
+     <positionref ref="pos1"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="Pipe2"/>
+     <positionref ref="pos2"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="Pipe3"/>
+     <positionref ref="pos3"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="Pipe4"/>
+     <positionref ref="pos4"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="Vac1"/>
+     <positionref ref="pos1"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="Vac2"/>
+     <positionref ref="pos2"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="Vac3"/>
+     <positionref ref="pos3"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="Vac4"/>
+     <positionref ref="pos4"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="Disk1"/>
+     <positionref ref="posd1"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="Disk2"/>
+     <positionref ref="posd2"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+   <physvol>
+     <volumeref ref="Disk3"/>
+     <positionref ref="posd3"/>
+     <rotationref ref="identity"/>
+   </physvol> 
+
+  </volume>
+
+ </structure>
+
+ <setup name="Default" version="1.0">
+  <world ref="BeamPipeAssembly"/>
+ </setup>
+
+</gdml>

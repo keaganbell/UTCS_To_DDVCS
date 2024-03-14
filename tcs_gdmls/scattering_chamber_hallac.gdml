@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!--gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation=
+      "/home/vardan/g4-work/GDML_3_1_5/schema/gdml.xsd"-->
+
+
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance [urldefense.proofpoint.com]" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+
+  <!-- Corrected according to G2PDetectorConstruction.cc from Jixie, -->
+  <!-- also according to SANE OVC drawings -->
+
+ <define>
+  <constant name="PI" value="1.*pi"/>
+  <constant name="TWOPI" value="2.*pi"/>
+
+  <!--quantity name="rin_cham" type="length" value="35.75/2*2.54" unit="cm"/-->
+  <quantity name="rin_cham" type="length" value="41.0/2*2.54" unit="cm"/>
+  <!--quantity name="thick_cham" type="length" value="2.54" unit="cm"/-->
+  <quantity name="thick_cham" type="length" value="2*2.54" unit="cm"/>
+  <quantity name="hight_out_cham" type="length" value="2*18.25*2.54" unit="cm"/>
+  <quantity name="hight_in_cham" type="length" value="17*2*2.54" unit="cm"/>
+
+  <quantity name="thick_left_win" type="length" value="0.020*2.54" unit="cm"/>
+  <quantity name="thick_right_win" type="length" value="0.020*2.54" unit="cm"/>
+
+ 
+  <!-- quantity name="philo_left_win" type="angle" value="-108." unit="deg"/ -->
+  <quantity name="philo_left_win" type="angle" value="0.750492" unit="deg"/>
+  <quantity name="dphi_left_win" type="angle" value="0.7644542" unit="deg"/>
+  <quantity name="philo_right_win" type="angle" value="1.626647" unit="deg"/>
+  <quantity name="dphi_right_win" type="angle" value="1.288053" unit="deg"/>
+
+  <quantity name="hight_left_win" type="length" value="15*2.54" unit="cm"/>
+  <quantity name="hight_right_win" type="length" value="15*2.54" unit="cm"/>
+
+  <rotation name="rotxp90" x="90" y="0" z="0" unit="deg"/>
+  <rotation name="rotxm90" x="-90" y="0" z="0" unit="deg"/>
+  <rotation name="rotxpzm90" x="-90" y="" z="-39.8" unit="deg"/>
+  <rotation name="rotym90" x="0" y="-90" z="0" unit="deg"/>
+  <rotation name="rotyp90" x="0" y="90" z="0" unit="deg"/>
+  <rotation name="rotzm90" x="0" y="0" z="-90" unit="deg"/>
+
+  <position name="center" x="0" y="0" z="0"/>
+  <rotation name="identity" x="0" y="0" z="0"/>
+
+  <quantity name="wX" type="length"
+	    value="(rin_cham+thick_cham+thick_left_win+thick_right_win)*2+1" unit="cm"/>
+  <quantity name="wY" type="length" value="hight_out_cham+1" unit="cm"/>
+  <quantity name="wZ" type="length" value="(rin_cham+thick_cham)*2+1" unit="cm"/>
+  
+  <position name="beamp_open_shift" x="0" y="rin_cham+(thick_cham*0.5)" z="0"/>
+
+  <position name="beamp_shift" x="0" y="0" z="rin_cham+thick_cham+(90.+37.+23.+300.)/2" />
+ </define>
+
+ <materials>
+
+  <material name="Al" Z="13.0"> <D value="2.70"/> <atom value="26.98"/>
+  </material>
+
+  <element name="Oxygen" formula="O" Z="8."> <atom value="16.0"/>   </element>
+  <element name="Nitrogen" formula="N" Z="7."> <atom value="14.01"/>  </element>
+
+  <!-- Vacuum at 10^-6 Torr -->
+  <material name="Vaccuum">
+   <D value="1.3e-12" unit="g/cm3"/>
+   <fraction n="0.7" ref="Nitrogen"/>
+   <fraction n="0.3" ref="Oxygen"/>
+  </material>
+
+ </materials>
+
+ <solids> 
+
+  <tube name="OVCOuterCyl" rmin="0." rmax="rin_cham+thick_cham"
+	z="hight_out_cham" deltaphi="TWOPI"/>
+
+  <tube name="OVCInnerCyl" rmin="0." rmax="rin_cham" z="hight_in_cham"
+	deltaphi="TWOPI"/>
+
+  <tube name="OVCWinLeft" rmin="rin_cham+0-0.1" rmax="rin_cham+thick_cham+0.1"
+	z="hight_left_win" startphi="philo_left_win" deltaphi="dphi_left_win"/>
+
+  <tube name="OVCWinRight" rmin="rin_cham+0-0.1" rmax="rin_cham+thick_cham+0.1"
+	z="hight_right_win" startphi="philo_right_win" deltaphi="dphi_right_win"/>
+
+  <tube name="beamp_open" rmin="0" rmax="2.+0.1"
+	z="thick_cham" deltaphi="TWOPI"/>
+
+  <tube name="OVCFoilLeft" rmin="rin_cham+thick_cham"
+	rmax="rin_cham+thick_cham+thick_left_win"
+	z="hight_left_win" startphi="philo_left_win" deltaphi="dphi_left_win"/>
+
+  <tube name="OVCFoilRight" rmin="rin_cham+thick_cham"
+	rmax="rin_cham+thick_cham+thick_right_win"
+	z="hight_right_win" startphi="philo_right_win" deltaphi="dphi_right_win"/>
+
+
+  <subtraction name="OVCs0" >
+    <first ref="OVCOuterCyl" />
+    <second ref="OVCInnerCyl"/>
+    <positionref ref="center" />
+    <rotationref ref="identity" />
+  </subtraction>
+
+  <!--substract it in right hall c window position -->
+  <subtraction name="OVCs1" >
+    <first ref="OVCs0" />
+    <second ref="OVCWinLeft"/>
+    <positionref ref="center" />
+    <!--rotationref ref="rotzm90" /-->
+  </subtraction>
+
+  <!--substract it in right hall c window position -->
+  <subtraction name="OVCs2" >
+    <first ref="OVCs1" />
+    <second ref="OVCWinRight"/>
+    <positionref ref="center" />
+    <!--rotationref ref="rotzm90" /-->
+  </subtraction>
+
+<subtraction name="OVCCyl" >
+    <first ref="OVCs2" />
+    <second ref="beamp_open"/>
+    <positionref ref="beamp_open_shift" />
+    <rotationref ref="rotxp90" />
+  </subtraction>
+
+  
+
+  <box name="OVCAssemblyBox" x="wX" y="wY" z="wZ"/>
+
+ </solids>
+
+ <structure>  
+
+  <volume name="OVCWinFoilLeft">
+   <materialref ref="Al"/>
+   <solidref ref="OVCFoilLeft"/>
+   <auxiliary auxtype="Color" auxvalue="green"/>
+  </volume>
+
+  <volume name="OVCWinFoilRight">
+   <materialref ref="Al"/>
+   <solidref ref="OVCFoilRight"/>
+   <auxiliary auxtype="Color" auxvalue="green"/>
+  </volume>
+
+  <volume name="OVCCan">
+   <materialref ref="Al"/>
+   <solidref ref="OVCCyl"/>
+   <!-- auxiliary auxtype="Color" auxvalue="cyan"/ -->
+  </volume>
+
+  <volume name="ChamberAssembly">
+   <materialref ref="Vaccuum"/>
+   <solidref ref="OVCAssemblyBox"/>
+
+   
+   <physvol>
+     <volumeref ref="OVCCan"/>
+     <positionref ref="center"/>
+     <rotationref ref="rotxm90"/>
+   </physvol>
+
+   <!--looking upstream : right : SHMS side window-->
+   <physvol>
+     <volumeref ref="OVCWinFoilLeft"/>
+     <positionref ref="center"/>
+     <rotationref ref="rotxm90"/>
+   </physvol>
+
+   <!--looking upstream : left : SHMS side window-->
+   <physvol>
+     <volumeref ref="OVCWinFoilRight"/>
+     <positionref ref="center"/>
+     <rotationref ref="rotxm90"/>
+   </physvol>
+
+   <!-- Target cell parallel to magnet coils for TCS -->
+   <physvol>
+     <file name="target_hallac.gdml"/>
+     <positionref ref="center"/>
+     <!--rotationref ref="rotym90"/-->
+   </physvol>
+
+   <!-- Beam Pipe -->
+   <physvol>
+     <file name="beam_pipe.gdml"/>
+     <positionref ref="beam_pipe_shift"/>
+     <positionref ref="beamp_shift"/>
+     <rotationref ref="idenity"/>
+   </physvol>
+
+   <!--physvol>
+     <file name="magnet.gdml"/>
+     <positionref ref="center"/>
+     <rotationref ref="identity"/>
+   </physvol-->
+
+   <!--physvol>
+    <file name="lheshield.gdml"/>
+    <positionref ref="center"/>
+    <rotationref ref="rotxp90"/>
+    </physvol-->
+   
+   <!--physvol-->
+     <!--file name="ln2shield.gdml"/-->
+     <!--positionref ref="center"/-->
+     <!--rotationref ref="rotxpzm90"/-->
+   <!--/physvol-->
+
+  </volume>
+
+ </structure>
+
+ <setup name="Default" version="1.0">
+   <world ref="ChamberAssembly"/>
+ </setup>
+
+</gdml>

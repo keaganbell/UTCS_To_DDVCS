@@ -1,0 +1,2 @@
+0	keep primary particles only, if true.
+0	kill tracks in the OVC walls, if true.

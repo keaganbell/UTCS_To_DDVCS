@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!--gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation=
+      "/work/hallc/nps/vardan/G4.nps/g4.10.04/GDML_3_1_6/schema/gdml.xsd"-->
+
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance [urldefense.proofpoint.com]" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+
+
+
+  <!-- According to Jixie's G2PDetectorConstruction.cc code. -->
+
+ <define>
+  <constant name="PI" value="1.*pi"/>
+  <constant name="TWOPI" value="2.*pi"/>
+
+  <quantity name="rin" type="length" value="38.1" unit="mm"/>
+  <quantity name="thick" type="length" value="0.0381" unit="mm"/>
+  <quantity name="hight" type="length" value="700." unit="mm"/>
+
+  <position name="center" x="0" y="0" z="0"/>
+  <rotation name="identity" x="0" y="0" z="0"/>
+
+  <quantity name="wRmax" type="length" value="(rin+thick)+0.1" unit="mm"/>
+  <quantity name="wRmin" type="length" value="rin+0-0.1" unit="mm"/>
+  <quantity name="wZ" type="length" value="hight+1" unit="mm"/>
+
+ </define>
+
+ <materials>
+
+  <material name="Al" Z="13.0"> <D value="2.70"/> <atom value="26.98"/>
+  </material>
+
+  <element name="Oxygen" formula="O" Z="8."> <atom value="16.0"/>   </element>
+  <element name="Nitrogen" formula="N" Z="7."> <atom value="14.01"/>  </element>
+
+  <!-- Vacuum at 10^-6 Torr -->
+  <material name="Vaccuum">
+   <D value="1.3e-12" unit="g/cm3"/>
+   <fraction n="0.7" ref="Nitrogen"/>
+   <fraction n="0.3" ref="Oxygen"/>
+  </material>
+
+ </materials>
+
+ <solids> 
+
+  <tube name="LHeShldCyl" rmin="rin" rmax="rin+thick" z="hight"
+	deltaphi="TWOPI"/>
+
+  <!-- tube name="LHeShieldAssemblyCyl" rmin="wRmin" rmax="wRmax" z="wZ" -->
+  <!-- deltaphi="TWOPI"/ -->
+  
+ </solids>
+
+ <structure>  
+
+  <volume name="LHeShieldBody">
+   <materialref ref="Al"/>
+   <solidref ref="LHeShldCyl"/>
+   <auxiliary auxtype="Color" auxvalue="magenta"/>
+  </volume>
+
+ </structure>
+
+ <setup name="Default" version="1.0">
+   <!-- world ref="LHeShieldAssembly"/ -->
+   <world ref="LHeShieldBody"/>
+ </setup>
+
+</gdml>

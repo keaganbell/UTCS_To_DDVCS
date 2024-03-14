@@ -1,0 +1,62 @@
+Assuming you have setup geant4 on ifarm:
+
+- Copy /work/hallc/nps/vardan/G4.nps/g4.11.02/tcs_sim.shared/tcs_setup
+  directory to your dedicated directory.
+
+- mkdir tcs_setup-build
+
+- cd tcs_setup-build
+
+- cmake ../tcs_setup
+
+- make -- will produce executable named tcs.
+
+In the tcs_setup_build you will have following files and directories:
+
+- beam_definition.txt -- defines beam particles and/or events:
+
+  - incoming particle name;
+  - low and high boundaries of momentum range;
+  - X, Y, Z coordinates of volume where incoming particles are sampled;
+  - the volume sizes along X, Y, Z axes;
+  - beam deflection angles [deg], in YZ and XZ planes;
+  - beam divegence angles [deg], in YZ and XZ planes;
+  - sampling mode of incoming particles, must be tcs, beam, brem or hep_data.
+
+- field_param.txt -- defines target's magnetic field, particularly
+  relative strength (nominally 1), rotation wrt Z axis (nominally 90
+  deg), name of file containing the field map;
+
+- field -- directory where the field map file resides;
+
+- nps_module.inp -- defines parameters of modules of calorimeters
+  related to light generation in PWO crystals and optical photon
+  tracking, particularly flags of Cherenkov light and scintillation
+  generation;
+
+- random_seeds.dat -- 3 numbers to initiate random generator;
+
+- run.mac -- a macro to run the code, particularly defines number of
+  events to sample;
+
+- stacking control.txt -- for some debugging purposes, leave as it is;
+
+- tcs_gdmls -- contains files with GDML definitions of parts of the setup;
+
+- tcs_gen.data -- an example file of TCS events written in HEP ascii format;
+
+- tcs_gen.kin_data -- file containing per event kinematic quantities
+  of TCS events in tcs_gen.data.
+
+Running the tcs executable without parameters will visualize the TCS
+setup in OpenGL rendering.
+
+Executing './tcs run.mac' will simulate 20k example TCS events and
+output results in tcs_setup.root file.
+
+Notes:
+
+In the beam_definitions.txt file, when sampling mode is 'tcs', the
+previous fields have no effect except the sampling volume position an
+sizes. In case of hep_data mode the user has to provide HEP data in
+file named hep.data.
