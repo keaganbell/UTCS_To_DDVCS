@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 
-<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<!--gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation=
-      "/work/hallc/nps/vardan/G4.nps/g4.10.04/GDML_3_1_6/schema/gdml.xsd">
+      "/work/hallc/nps/vardan/G4.nps/g4.10.04/GDML_3_1_6/schema/gdml.xsd"-->
 
-<!--gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd"-->
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
 
   <!-- Corrected according to G2PDetectorConstruction.cc from Jixie, -->
   <!-- also according to SANE OVC drawings -->
@@ -166,7 +166,7 @@
 
    <!-- Target cell parallel to magnet coils for TCS -->
    <physvol>
-     <file name="/w/hallc-scshelf2102/nps/biswas/tcs_unpolarized/tcs_sim.shared/tcs_setup/tcs_gdmls/target_hallac.gdml"/>
+       <file name="../tcs_gdmls/target_hallac.gdml"/>
      <!--positionref ref="center"/-->
      <!--rotationref ref="rotym90"/-->
    </physvol>

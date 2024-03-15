@@ -144,7 +144,7 @@ TCSPrimaryGeneratorAction::TCSPrimaryGeneratorAction() :
   if (fMode == tcs) {
     //    fTCSEntryNum = 0;
     //    fTCSPartNum = 0;
-    fHEPEvt = new G4HEPEvtInterface("ddvcs_gen.data");
+    fHEPEvt = new G4HEPEvtInterface("tcs_gen.data");
   }
   else if (fMode == hep_data) {
     fHEPEvt = new G4HEPEvtInterface("hep.data");
